@@ -4,14 +4,18 @@ import TweetCard from "../../components/TweetCard";
 import TweetInput from "../../components/TweetInput";
 import { Tweet } from "../../utils/interfaces";
 import { ToastContainer } from "react-toastify";
+import Loader from "../../components/Loader";
 
 function Home() {
   const [tweets, setTweets] = useState<Tweet[] | undefined>();
   const [detectChange, setDetectChange] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getTweetsData = async () => {
+    setLoading(true);
     const response = await getTweets();
     setTweets(response.reverse());
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -19,11 +23,12 @@ function Home() {
   }, [detectChange]);
 
   return (
-    <div className="container divide-y divide-slate-700 border-r-2 border-l-2 h-full border-slate-700">
+    <div className="divide-y divide-slate-700 border-r-2 border-l-2 h-full border-slate-700">
       <TweetInput
         detectChange={detectChange}
         setDetectChange={setDetectChange}
       />
+      {loading && <Loader />}
       {tweets?.map((item) => (
         <TweetCard
           key={item.id}

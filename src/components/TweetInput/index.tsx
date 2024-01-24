@@ -46,14 +46,14 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
     <>
       <div className="m-2">
         <div className="grid grid-cols-12 gap-0 border-b-2 border-slate-700">
-          <div className="col-span-1">
+          <div className="xs:col-span-12 sm:col-span-2 lg:col-span-1">
             <img
               className="inline-block h-[3.875rem] w-[3.875rem] rounded-full"
               src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg"
               alt="Image Description"
             ></img>
           </div>
-          <div className="col-span-11 align-middle text-left mb-2">
+          <div className="xs:col-span-12 sm:col-span-10 lg:col-span-11 align-middle text-left mb-2">
             <textarea
               id="textarea-label"
               className="py-3 px-4 block w-full rounded-lg text-sm bg-transparent focus:outline-none"
@@ -69,21 +69,21 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
         <div className="text-right my-2">
           <button
             onClick={() => createTweet()}
-            className="bg-blue-500 px-2 rounded mb-2 disabled:bg-gray-500"
+            className="bg-blue-500 hover:bg-blue-700 px-2 rounded mb-2 disabled:bg-gray-500"
             disabled={content == ""}
           >
             Post
           </button>
         </div>
-      </div>
 
-      <button
-        type="button"
-        className="mb-4 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-        data-hs-overlay="#hs-focus-management-modal"
-      >
-        Or Post A Tweet As New Author
-      </button>
+        <button
+          type="button"
+          className="mb-4 py-3 px-4 inline-flex items-center gap-x-2 xs:text-xs sm:text-sm font-semibold rounded-lg border border-transparent bg-blue-500 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          data-hs-overlay="#hs-focus-management-modal"
+        >
+          Post As New Author
+        </button>
+      </div>
 
       <div
         id="hs-focus-management-modal"

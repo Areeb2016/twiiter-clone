@@ -51,25 +51,32 @@ const TweetCard: React.FC<TweetCardProps> = ({
 
   return (
     <div className="border-b-2 p-2 my-2 relative">
-      <div className="grid grid-cols-12 gap-0 mt-2 mb-2">
-        <div className="col-span-1">
+      <div className="grid grid-cols-12 xs:gap-2 lg:gap-0 mt-2 mb-2">
+        <div className="xs:col-span-12 sm:col-span-2 lg:col-span-1">
           <img
             className="inline-block h-[3.875rem] w-[3.875rem] rounded-full"
             src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg"
             alt="Image Description"
           ></img>
         </div>
-        <div className="col-span-11 align-middle text-left">
-          <div className="flex items-baseline gap-2">
-            <h1 className="text-xl dark:text-white">{author}</h1>
-            <h1 className="text-lg dark:text-gray-500">@{author}</h1>
-
-            <h2 className="text-sm dark:text-white">
-              posted@{formatDate(createdAt)}
-            </h2>
-            <h2 className="text-sm dark:text-white">
-              edited@{formatDate(updatedAt)}
-            </h2>
+        <div className="xs:col-span-12 sm:col-span-10 lg:col-span-11 align-middle text-left w-full">
+          <div className="flex xs:flex-col md:flex-row items-baseline gap-2">
+            <div className="flex items-baseline gap-2">
+              <h1 className="xs:text-sm md:text-xl dark:text-white">
+                {author}
+              </h1>
+              <h1 className="xs:text-sm md:text-lg dark:text-gray-500">
+                @{author}
+              </h1>
+            </div>
+            <div className="flex items-baseline gap-2">
+              <h2 className="xs:text-xs md:text-sm dark:text-white">
+                posted@{formatDate(createdAt)}
+              </h2>
+              <h2 className="xs:text-xs md:text-sm dark:text-white">
+                edited@{formatDate(updatedAt)}
+              </h2>
+            </div>
           </div>
           {editContent ? (
             <>
@@ -102,7 +109,9 @@ const TweetCard: React.FC<TweetCardProps> = ({
               </div>
             </>
           ) : (
-            <p className="dark:text-white">{updatedContent}</p>
+            <p className="xs:text-sm md:text-base dark:text-white xs:mt-2 md:mt-0">
+              {updatedContent}
+            </p>
           )}
         </div>
       </div>
@@ -110,13 +119,13 @@ const TweetCard: React.FC<TweetCardProps> = ({
       <div className="absolute top-2 right-0 flex align-middle gap-1">
         <FontAwesomeIcon
           icon={faPencilSquare}
-          className="h-5 w-5 mr-2 cursor-pointer"
+          className="xs:h-3 md:h-5 xs:w-3 md:w-5 mr-2 cursor-pointer"
           onClick={() => setEditContent(true)}
         />
 
         <FontAwesomeIcon
           icon={faTrash}
-          className="h-5 w-5 mr-2 cursor-pointer"
+          className="xs:h-3 md:h-5 xs:w-3 md:w-5 mr-2 cursor-pointer"
           onClick={() => removeTweet()}
         />
       </div>
