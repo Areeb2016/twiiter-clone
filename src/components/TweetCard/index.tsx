@@ -1,21 +1,13 @@
 import { useState } from "react";
 import { deleteTweet, updateTweet } from "../../utils/apis";
 import { formatDate } from "../../utils/helper";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { faTrash, faPencilSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TweetCardProps } from "../../utils/interfaces";
+import { deleteSuccess, editSuccess, fail } from "../../utils/toasts";
 
-interface Tweet {
-  id: string;
-  author: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  setDetectChange: (value: boolean) => void;
-  detectChange: boolean;
-}
-
-const TweetCard: React.FC<Tweet> = ({
+const TweetCard: React.FC<TweetCardProps> = ({
   id,
   author,
   content,
@@ -26,19 +18,6 @@ const TweetCard: React.FC<Tweet> = ({
 }) => {
   const [editContent, setEditContent] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(content);
-
-  const delSuccess = () =>
-    toast("You deleted a Tweet!", {
-      type: "success",
-    });
-  const fail = () =>
-    toast("Something went wrong!", {
-      type: "warning",
-    });
-  const editSuccess = () =>
-    toast("Your Tweet updated!", {
-      type: "success",
-    });
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text: string = e.target.value;
@@ -64,7 +43,7 @@ const TweetCard: React.FC<Tweet> = ({
   const removeTweet = async () => {
     const response = await deleteTweet(id);
     if (response == "OK") {
-      delSuccess();
+      deleteSuccess();
       setDetectChange(!detectChange);
     } else {
       fail();

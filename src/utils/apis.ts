@@ -1,10 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../config";
-
-interface TweetBody {
-  author: string;
-  content: string;
-}
+import { TweetBody } from "./interfaces";
 
 export async function getTweets() {
   try {

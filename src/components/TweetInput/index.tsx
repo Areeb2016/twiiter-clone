@@ -1,28 +1,12 @@
 import { ReactElement, useState } from "react";
 import { postTweet } from "../../utils/apis";
-import { ToastContainer, toast } from "react-toastify";
-
-type TweetInputProps = {
-  setDetectChange: (value: boolean) => void;
-  detectChange: boolean;
-};
+import { ToastContainer } from "react-toastify";
+import { TweetInputProps } from "../../utils/interfaces";
+import { emptyError, fail, success } from "../../utils/toasts";
 
 const TweetInput = (props: TweetInputProps): ReactElement => {
   const [author, setAuthor] = useState("Areeb");
   const [content, setContent] = useState("");
-
-  const success = () =>
-    toast("You posted a Tweet!", {
-      type: "success",
-    });
-  const fail = () =>
-    toast("Your post is empty!", {
-      type: "warning",
-    });
-  const failApi = () =>
-    toast("Something went wrong!", {
-      type: "warning",
-    });
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text: string = e.target.value;
@@ -50,10 +34,10 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
         success();
         props.setDetectChange(!props.detectChange);
       } else {
-        failApi();
+        fail();
       }
     } else {
-      fail();
+      emptyError();
     }
     setAuthor("Areeb");
     setContent("");

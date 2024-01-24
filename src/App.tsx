@@ -1,10 +1,8 @@
 import "./App.css";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import "preline/preline";
 import { IStaticMethods } from "preline/preline";
 import Home from "./pages/Home";
-import "react-toastify/dist/ReactToastify.css";
 
 declare global {
   interface Window {
