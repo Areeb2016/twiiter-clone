@@ -1,3 +1,5 @@
+/* <--- all interfaces and types must be called and exported from here ---> */
+
 export interface TweetCardProps {
   id: string;
   author: string;

@@ -1,7 +1,10 @@
+/* <--- all apis must be called and exported from here ---> */
+
 import axios from "axios";
 import { BASE_URL } from "../config";
 import { TweetBody } from "./interfaces";
 
+/* <--- get all tweets api ---> */
 export async function getTweets() {
   try {
     const response = await axios.get(`${BASE_URL}/tweets`);
@@ -11,6 +14,7 @@ export async function getTweets() {
   }
 }
 
+/* <--- create a tweet api ---> */
 export async function postTweet(body: TweetBody) {
   try {
     await axios.post(`${BASE_URL}/tweets`, body);
@@ -20,6 +24,7 @@ export async function postTweet(body: TweetBody) {
   }
 }
 
+/* <--- edit a tweet api ---> */
 export async function updateTweet(id: string, body: TweetBody) {
   try {
     await axios.patch(`${BASE_URL}/tweets/${id}`, body);
@@ -29,6 +34,7 @@ export async function updateTweet(id: string, body: TweetBody) {
   }
 }
 
+/* <--- delete a tweet api ---> */
 export async function deleteTweet(id: string) {
   try {
     await axios.delete(`${BASE_URL}/tweets/${id}`);

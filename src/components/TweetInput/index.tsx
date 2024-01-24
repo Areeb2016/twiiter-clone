@@ -4,7 +4,7 @@ import { TweetInputProps } from "../../utils/interfaces";
 import { emptyError, fail, success } from "../../utils/toasts";
 
 const TweetInput = (props: TweetInputProps): ReactElement => {
-  const [author, setAuthor] = useState("Areeb");
+  const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
   const [disable, setDisable] = useState(false);
 
@@ -19,7 +19,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
   };
 
   const onCancel = () => {
-    setAuthor("Areeb");
+    setAuthor("");
     setContent("");
   };
 
@@ -29,7 +29,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
       author: author,
       content: content,
     };
-    if (content !== "") {
+    if (author !== "" && content !== "") {
       const response = await postTweet(body);
       if (response == "OK") {
         success();
@@ -40,15 +40,16 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
     } else {
       emptyError();
     }
-    setAuthor("Areeb");
+    setAuthor("");
     setContent("");
     setDisable(false);
   };
 
   return (
     <>
-      <div className="m-2">
-        <div className="grid grid-cols-12 gap-0 border-b-2 border-slate-700">
+      <div className="text-left m-2">
+        {/* <--- commented code is below for twitter like input without using modal which is not as per requiremnet ---> */}
+        {/* <div className="grid grid-cols-12 gap-0 border-b-2 border-slate-700">
           <div className="xs:col-span-12 sm:col-span-2 lg:col-span-1">
             <img
               className="inline-block h-[3.875rem] w-[3.875rem] rounded-full"
@@ -68,8 +69,8 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
               value={content}
             ></textarea>
           </div>
-        </div>
-        <div className="text-right my-2">
+        </div> */}
+        {/* <div className="text-right my-2">
           <button
             onClick={() => createTweet()}
             className="bg-blue-500 hover:bg-blue-700 px-2 rounded mb-2 disabled:bg-gray-500"
@@ -77,17 +78,20 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
           >
             Post
           </button>
-        </div>
+        </div> */}
+        {/* <--- commented code is above for twitter like input without using modal which is not as per requiremnet ---> */}
 
+        {/* <--- create tweet button ---> */}
         <button
           type="button"
           className="mb-4 py-3 px-4 inline-flex items-center gap-x-2 xs:text-xs sm:text-sm font-semibold rounded-lg border border-transparent bg-blue-500 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           data-hs-overlay="#hs-focus-management-modal"
         >
-          Post As New Author
+          Create a Tweet
         </button>
       </div>
 
+      {/* <--- create tweet modal ---> */}
       <div
         id="hs-focus-management-modal"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none"
@@ -171,7 +175,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
                 type="button"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 data-hs-overlay="#hs-focus-management-modal"
-                disabled={content == "" || disable}
+                disabled={author == "" || content == "" || disable}
                 onClick={() => createTweet()}
               >
                 Post
