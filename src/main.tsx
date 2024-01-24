@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import "tailwindcss/tailwind.css";
 import "preline/preline";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter } from "react-router-dom";
 import("preline");
 

@@ -2,14 +2,8 @@ import { useEffect, useState } from "react";
 import { getTweets } from "../../utils/apis";
 import TweetCard from "../../components/TweetCard";
 import TweetInput from "../../components/TweetInput";
-
-interface Tweet {
-  id: string;
-  author: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Tweet } from "../../utils/interfaces";
+import { ToastContainer } from "react-toastify";
 
 function Home() {
   const [tweets, setTweets] = useState<Tweet[] | undefined>();
@@ -31,8 +25,14 @@ function Home() {
         setDetectChange={setDetectChange}
       />
       {tweets?.map((item) => (
-        <TweetCard key={item.id} {...item} />
+        <TweetCard
+          key={item.id}
+          detectChange={detectChange}
+          setDetectChange={setDetectChange}
+          {...item}
+        />
       ))}
+      <ToastContainer />
     </div>
   );
 }

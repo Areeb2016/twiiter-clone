@@ -1,20 +1,52 @@
+import { useState } from "react";
+import { deleteTweet, updateTweet } from "../../utils/apis";
 import { formatDate } from "../../utils/helper";
+import { faTrash, faPencilSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TweetCardProps } from "../../utils/interfaces";
+import { deleteSuccess, editSuccess, fail } from "../../utils/toasts";
 
-interface Tweet {
-  id: string;
-  author: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
+const TweetCard: React.FC<TweetCardProps> = ({
+  id,
+  author,
+  content,
+  createdAt,
+  updatedAt,
+  detectChange,
+  setDetectChange,
+}) => {
+  const [editContent, setEditContent] = useState(false);
+  const [updatedContent, setUpdatedContent] = useState(content);
 
-const TweetCard: React.FC<Tweet> = ({ id, author, content, updatedAt }) => {
-  const editTweet = () => {
-    console.log(id);
+  const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text: string = e.target.value;
+    setUpdatedContent(text);
   };
 
-  const deleteTweet = () => {
-    console.log("djak");
+  const editTweet = async () => {
+    const body = {
+      author: author,
+      content: updatedContent,
+    };
+    const response = await updateTweet(id, body);
+    if (response == "OK") {
+      editSuccess();
+      setEditContent(false);
+      setDetectChange(!detectChange);
+    } else {
+      fail();
+      setEditContent(false);
+    }
+  };
+
+  const removeTweet = async () => {
+    const response = await deleteTweet(id);
+    if (response == "OK") {
+      deleteSuccess();
+      setDetectChange(!detectChange);
+    } else {
+      fail();
+    }
   };
 
   return (
@@ -27,41 +59,66 @@ const TweetCard: React.FC<Tweet> = ({ id, author, content, updatedAt }) => {
             alt="Image Description"
           ></img>
         </div>
-        <div className="col-span-8 align-middle text-left">
+        <div className="col-span-11 align-middle text-left">
           <div className="flex items-baseline gap-2">
             <h1 className="text-xl dark:text-white">{author}</h1>
             <h1 className="text-lg dark:text-gray-500">@{author}</h1>
-            <h1 className="text-lg dark:text-gray-500">.</h1>
-            <h2 className="text-sm dark:text-white">{formatDate(updatedAt)}</h2>
+
+            <h2 className="text-sm dark:text-white">
+              posted@{formatDate(createdAt)}
+            </h2>
+            <h2 className="text-sm dark:text-white">
+              edited@{formatDate(updatedAt)}
+            </h2>
           </div>
-          <p className="dark:text-white">{content}</p>
+          {editContent ? (
+            <>
+              <textarea
+                id="textarea-label"
+                className="py-3 px-4 block w-full rounded-lg text-sm bg-transparent focus:outline-none"
+                rows={3}
+                placeholder="What is happening?"
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                  handleOnChange(e)
+                }
+                value={updatedContent}
+              ></textarea>
+
+              <div className="text-right my-3">
+                <button
+                  onClick={() => setEditContent(false)}
+                  className="bg-blue-500 px-2 py-1 rounded mb-2 disabled:bg-gray-500"
+                  disabled={content == ""}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => editTweet()}
+                  className="bg-blue-500 px-2 py-1 rounded mb-2 disabled:bg-gray-500 ml-4"
+                  disabled={content == ""}
+                >
+                  Post
+                </button>
+              </div>
+            </>
+          ) : (
+            <p className="dark:text-white">{updatedContent}</p>
+          )}
         </div>
       </div>
 
       <div className="absolute top-2 right-0 flex align-middle gap-1">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
+        <FontAwesomeIcon
+          icon={faPencilSquare}
           className="h-5 w-5 mr-2 cursor-pointer"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          onClick={() => editTweet()}
-        >
-          <path d="M5 0a1 1 0 011 1v14a1 1 0 01-1 1H1a1 1 0 01-1-1V1a1 1 0 011-1h4zm14 4a1 1 0 011 1v14a1 1 0 01-1 1H11a1 1 0 01-1-1V5a1 1 0 011-1h7zm-3 4a1 1 0 110 2H8a1 1 0 110-2h8zm0 4a1 1 0 110 2H8a1 1 0 110-2h8z" />
-        </svg>
+          onClick={() => setEditContent(true)}
+        />
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
+        <FontAwesomeIcon
+          icon={faTrash}
           className="h-5 w-5 mr-2 cursor-pointer"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          onClick={() => deleteTweet()}
-        >
-          <path
-            fill-rule="evenodd"
-            d="M13 2a1 1 0 011 1v12a1 1 0 01-1 1H1a1 1 0 01-1-1V3a1 1 0 011-1h12zm-1 2H3a1 1 0 00-1 1v10a1 1 0 001 1h9.586l-1.293-1.293a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L11.586 15H3a3 3 0 01-3-3V6a3 3 0 013-3h9a1 1 0 110 2z"
-            clip-rule="evenodd"
-          />
-        </svg>
+          onClick={() => removeTweet()}
+        />
       </div>
     </div>
   );
