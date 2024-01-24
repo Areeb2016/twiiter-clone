@@ -129,25 +129,26 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
             <div className="text-left p-4 overflow-y-auto">
               <label
                 htmlFor="input-label"
-                className="block text-sm font-medium mb-2 dark:text-white"
+                className="block xs:text-xs sm:text-sm font-medium mb-2 dark:text-white"
               >
                 Name
               </label>
               <input
                 type="text"
                 id="input-label"
-                className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                className="py-3 px-4 block w-full border-gray-200 rounded-lg xs:text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                 placeholder="your name"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleOnInputChange(e)
                 }
+                value={author}
                 autoFocus
               ></input>
             </div>
             <div className="text-left p-4 overflow-y-auto">
               <label
                 htmlFor="input-label"
-                className="block text-sm font-medium mb-2 dark:text-white"
+                className="block xs:text-xs sm:text-sm font-medium mb-2 dark:text-white"
               >
                 Content
               </label>
@@ -165,7 +166,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
             <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
               <button
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                className="py-2 px-3 inline-flex items-center gap-x-2 xs:text-xs sm:text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 data-hs-overlay="#hs-focus-management-modal"
                 onClick={() => onCancel()}
               >
@@ -173,7 +174,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
               </button>
               <button
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                className="py-2 px-3 inline-flex items-center gap-x-2 xs:text-xs sm:text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 data-hs-overlay="#hs-focus-management-modal"
                 disabled={author == "" || content == "" || disable}
                 onClick={() => createTweet()}
