@@ -3,6 +3,7 @@ import { getTweets } from "../../utils/apis";
 import TweetCard from "../../components/TweetCard";
 import TweetInput from "../../components/TweetInput";
 import { Tweet } from "../../utils/interfaces";
+import { ToastContainer } from "react-toastify";
 
 function Home() {
   const [tweets, setTweets] = useState<Tweet[] | undefined>();
@@ -31,6 +32,7 @@ function Home() {
           {...item}
         />
       ))}
+      <ToastContainer />
     </div>
   );
 }

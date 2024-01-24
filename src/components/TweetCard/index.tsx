@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { deleteTweet, updateTweet } from "../../utils/apis";
 import { formatDate } from "../../utils/helper";
-import { ToastContainer } from "react-toastify";
 import { faTrash, faPencilSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TweetCardProps } from "../../utils/interfaces";
@@ -120,10 +119,6 @@ const TweetCard: React.FC<TweetCardProps> = ({
           className="h-5 w-5 mr-2 cursor-pointer"
           onClick={() => removeTweet()}
         />
-      </div>
-
-      <div>
-        <ToastContainer />
       </div>
     </div>
   );

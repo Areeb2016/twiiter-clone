@@ -1,6 +1,5 @@
 import { ReactElement, useState } from "react";
 import { postTweet } from "../../utils/apis";
-import { ToastContainer } from "react-toastify";
 import { TweetInputProps } from "../../utils/interfaces";
 import { emptyError, fail, success } from "../../utils/toasts";
 
@@ -28,7 +27,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
       author: author,
       content: content,
     };
-    if (content != "") {
+    if (content !== "") {
       const response = await postTweet(body);
       if (response == "OK") {
         success();
@@ -176,10 +175,6 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div>
-        <ToastContainer />
       </div>
     </>
   );
