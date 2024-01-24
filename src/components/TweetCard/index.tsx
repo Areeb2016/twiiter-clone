@@ -78,6 +78,8 @@ const TweetCard: React.FC<TweetCardProps> = ({
               </h2>
             </div>
           </div>
+
+          {/* <--- edit tweet content section ---> */}
           {editContent ? (
             <>
               <textarea
@@ -116,6 +118,7 @@ const TweetCard: React.FC<TweetCardProps> = ({
         </div>
       </div>
 
+      {/* <--- edit icon ---> */}
       <div className="absolute top-2 right-0 flex align-middle gap-1">
         <FontAwesomeIcon
           icon={faPencilSquare}
@@ -123,6 +126,7 @@ const TweetCard: React.FC<TweetCardProps> = ({
           onClick={() => setEditContent(true)}
         />
 
+        {/* <--- delete icon ---> */}
         <FontAwesomeIcon
           icon={faTrash}
           className="xs:h-3 md:h-5 xs:w-3 md:w-5 mr-2 cursor-pointer"

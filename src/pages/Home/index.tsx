@@ -24,11 +24,16 @@ function Home() {
 
   return (
     <div className="divide-y divide-slate-700 border-r-2 border-l-2 h-full border-slate-700">
+      {/* <--- create tweet modal section ---> */}
       <TweetInput
         detectChange={detectChange}
         setDetectChange={setDetectChange}
       />
+
+      {/* <--- loader ---> */}
       {loading && <Loader />}
+
+      {/* <--- view tweets section ---> */}
       {tweets?.map((item) => (
         <TweetCard
           key={item.id}
@@ -37,6 +42,8 @@ function Home() {
           {...item}
         />
       ))}
+
+      {/* <--- toast container to view toasts ---> */}
       <ToastContainer />
     </div>
   );
