@@ -31,7 +31,7 @@ function Home() {
         setDetectChange={setDetectChange}
       />
       {tweets?.map((item) => (
-        <TweetCard key={item.id} {...item} />
+        <TweetCard key={item.id} detectChange={detectChange} setDetectChange={setDetectChange} {...item}  />
       ))}
     </div>
   );
