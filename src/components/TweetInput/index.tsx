@@ -6,6 +6,7 @@ import { emptyError, fail, success } from "../../utils/toasts";
 const TweetInput = (props: TweetInputProps): ReactElement => {
   const [author, setAuthor] = useState("Areeb");
   const [content, setContent] = useState("");
+  const [disable, setDisable] = useState(false);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text: string = e.target.value;
@@ -23,6 +24,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
   };
 
   const createTweet = async () => {
+    setDisable(true);
     const body = {
       author: author,
       content: content,
@@ -40,6 +42,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
     }
     setAuthor("Areeb");
     setContent("");
+    setDisable(false);
   };
 
   return (
@@ -70,7 +73,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
           <button
             onClick={() => createTweet()}
             className="bg-blue-500 hover:bg-blue-700 px-2 rounded mb-2 disabled:bg-gray-500"
-            disabled={content == ""}
+            disabled={content == "" || disable}
           >
             Post
           </button>
@@ -168,6 +171,7 @@ const TweetInput = (props: TweetInputProps): ReactElement => {
                 type="button"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 data-hs-overlay="#hs-focus-management-modal"
+                disabled={content == "" || disable}
                 onClick={() => createTweet()}
               >
                 Post
